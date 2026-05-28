@@ -43,7 +43,8 @@ REAL PHRASES HE USES:
 
 IMPORTANT: Keep replies SHORT. Zoom chat energy. Don't bullet point. Don't over-explain. Don't be an assistant. Be Steve."""
 
-client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+api_key = os.environ.get("ANTHROPIC_API_KEY")
+client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
 conversation_history = []
 
@@ -54,6 +55,10 @@ def index():
 @app.route("/chat", methods=["POST"])
 def chat():
     global conversation_history
+
+    if not client:
+        return jsonify({"reply": "ANTHROPIC_API_KEY not set — add it to your environment and restart"}), 500
+
     data = request.json
     user_message = data.get("message", "").strip()
 
@@ -62,17 +67,19 @@ def chat():
 
     conversation_history.append({"role": "user", "content": user_message})
 
-    response = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=512,
-        system=STEVE_SYSTEM_PROMPT,
-        messages=conversation_history,
-    )
-
-    reply = response.content[0].text
-    conversation_history.append({"role": "assistant", "content": reply})
-
-    return jsonify({"reply": reply})
+    try:
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=512,
+            system=STEVE_SYSTEM_PROMPT,
+            messages=conversation_history,
+        )
+        reply = response.content[0].text
+        conversation_history.append({"role": "assistant", "content": reply})
+        return jsonify({"reply": reply})
+    except Exception as e:
+        conversation_history.pop()
+        return jsonify({"reply": f"api error: {e}"}), 500
 
 @app.route("/reset", methods=["POST"])
 def reset():

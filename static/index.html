@@ -9,66 +9,90 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f0f2f5;
+      background: #1a1a2e;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+      gap: 0;
     }
 
+    /* ── pixel steve ── */
+    .steve-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: -6px;
+      z-index: 1;
+    }
+
+    .pixel-steve {
+      image-rendering: pixelated;
+      width: 96px;
+      height: 96px;
+    }
+
+    .steve-name {
+      color: #e0e0e0;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* ── chat box ── */
     .chat-container {
-      width: 420px;
-      height: 640px;
-      background: #fff;
+      width: 400px;
+      height: 560px;
+      background: #16213e;
       border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      border: 1px solid #0f3460;
     }
 
     .chat-header {
-      background: #1a73e8;
-      color: white;
-      padding: 16px 20px;
+      background: #0f3460;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .avatar {
-      width: 40px;
-      height: 40px;
+    .status-dot {
+      width: 8px; height: 8px;
+      background: #4ade80;
       border-radius: 50%;
-      background: #fff3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+      flex-shrink: 0;
     }
 
-    .header-info h2 {
-      font-size: 16px;
+    .header-title {
+      font-size: 14px;
       font-weight: 600;
+      color: #e2e8f0;
     }
 
-    .header-info .status {
-      font-size: 12px;
-      opacity: 0.8;
+    .header-sub {
+      font-size: 11px;
+      color: #94a3b8;
     }
 
     .reset-btn {
       margin-left: auto;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 8px;
+      background: transparent;
+      border: 1px solid #1e4080;
+      color: #94a3b8;
+      padding: 4px 10px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 11px;
     }
-
-    .reset-btn:hover { background: rgba(255,255,255,0.3); }
+    .reset-btn:hover { border-color: #94a3b8; color: #e2e8f0; }
 
     .messages {
       flex: 1;
@@ -76,53 +100,49 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: #0f3460 transparent;
     }
 
     .message {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 18px;
-      font-size: 14px;
-      line-height: 1.4;
+      max-width: 78%;
+      padding: 9px 13px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      line-height: 1.45;
       word-break: break-word;
     }
 
     .message.user {
       align-self: flex-end;
-      background: #1a73e8;
-      color: white;
-      border-bottom-right-radius: 4px;
+      background: #2563eb;
+      color: #fff;
+      border-bottom-right-radius: 3px;
     }
 
     .message.steve {
       align-self: flex-start;
-      background: #f1f3f4;
-      color: #202124;
-      border-bottom-left-radius: 4px;
-    }
-
-    .message.steve .sender {
-      font-size: 11px;
-      font-weight: 600;
-      color: #1a73e8;
-      margin-bottom: 4px;
+      background: #1e293b;
+      color: #cbd5e1;
+      border-bottom-left-radius: 3px;
     }
 
     .typing-indicator {
       align-self: flex-start;
-      background: #f1f3f4;
-      border-radius: 18px;
-      border-bottom-left-radius: 4px;
+      background: #1e293b;
+      border-radius: 14px;
+      border-bottom-left-radius: 3px;
       padding: 12px 16px;
       display: none;
+      gap: 4px;
+      align-items: center;
     }
-
-    .typing-indicator.visible { display: flex; gap: 4px; align-items: center; }
+    .typing-indicator.visible { display: flex; }
 
     .dot {
-      width: 8px; height: 8px;
-      background: #999;
+      width: 6px; height: 6px;
+      background: #475569;
       border-radius: 50%;
       animation: bounce 1.2s infinite;
     }
@@ -131,75 +151,121 @@
 
     @keyframes bounce {
       0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-6px); }
+      30% { transform: translateY(-5px); }
     }
 
     .input-area {
-      padding: 12px 16px;
-      border-top: 1px solid #e8eaed;
+      padding: 12px 14px;
+      border-top: 1px solid #0f3460;
       display: flex;
       gap: 8px;
+      align-items: center;
     }
 
     input[type="text"] {
       flex: 1;
-      border: 1px solid #dadce0;
-      border-radius: 24px;
-      padding: 10px 16px;
-      font-size: 14px;
+      background: #1e293b;
+      border: 1px solid #0f3460;
+      border-radius: 20px;
+      padding: 9px 15px;
+      font-size: 13.5px;
+      color: #e2e8f0;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s;
     }
-
-    input[type="text"]:focus { border-color: #1a73e8; }
+    input[type="text"]::placeholder { color: #475569; }
+    input[type="text"]:focus { border-color: #2563eb; }
 
     button.send-btn {
-      background: #1a73e8;
+      background: #2563eb;
       color: white;
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 36px; height: 36px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
       flex-shrink: 0;
+      transition: background 0.15s;
     }
-
-    button.send-btn:hover { background: #1557b0; }
-    button.send-btn:disabled { background: #c5cae9; cursor: default; }
+    button.send-btn:hover { background: #1d4ed8; }
+    button.send-btn:disabled { background: #1e293b; cursor: default; }
   </style>
 </head>
 <body>
+
+  <div class="steve-widget">
+    <!-- pixel art ginger Steve: hoodie, square glasses, ginger hair -->
+    <svg class="pixel-steve" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <!-- ginger hair top -->
+      <rect x="4" y="0" width="8" height="1" fill="#c0392b"/>
+      <rect x="3" y="1" width="10" height="1" fill="#c0392b"/>
+      <rect x="3" y="2" width="10" height="1" fill="#c0392b"/>
+      <!-- sideburns -->
+      <rect x="3" y="3" width="1" height="3" fill="#c0392b"/>
+      <rect x="12" y="3" width="1" height="3" fill="#c0392b"/>
+      <!-- face -->
+      <rect x="4" y="3" width="8" height="5" fill="#f4c5a0"/>
+      <!-- square glasses frames -->
+      <rect x="4" y="5" width="3" height="2" fill="#2c2c2c"/>
+      <rect x="9" y="5" width="3" height="2" fill="#2c2c2c"/>
+      <!-- lens fill (lighter) -->
+      <rect x="5" y="5" width="2" height="2" fill="#a8d8ea"/>
+      <rect x="10" y="5" width="2" height="2" fill="#a8d8ea"/>
+      <!-- nose bridge -->
+      <rect x="7" y="6" width="2" height="1" fill="#2c2c2c"/>
+      <!-- small smile -->
+      <rect x="6" y="7" width="1" height="1" fill="#c0826a"/>
+      <rect x="9" y="7" width="1" height="1" fill="#c0826a"/>
+      <rect x="7" y="8" width="2" height="1" fill="#c0826a"/>
+      <!-- neck -->
+      <rect x="6" y="8" width="4" height="1" fill="#f4c5a0"/>
+      <!-- hoodie body — dark gray -->
+      <rect x="2" y="9" width="12" height="7" fill="#374151"/>
+      <!-- hoodie hood/collar -->
+      <rect x="4" y="9" width="8" height="1" fill="#4b5563"/>
+      <rect x="3" y="9" width="1" height="2" fill="#4b5563"/>
+      <rect x="12" y="9" width="1" height="2" fill="#4b5563"/>
+      <!-- hoodie pocket -->
+      <rect x="5" y="12" width="6" height="3" fill="#4b5563"/>
+      <!-- arms -->
+      <rect x="0" y="9" width="2" height="6" fill="#374151"/>
+      <rect x="14" y="9" width="2" height="6" fill="#374151"/>
+      <!-- hands -->
+      <rect x="0" y="15" width="2" height="1" fill="#f4c5a0"/>
+      <rect x="14" y="15" width="2" height="1" fill="#f4c5a0"/>
+    </svg>
+    <div class="steve-name">Steve</div>
+  </div>
+
   <div class="chat-container">
     <div class="chat-header">
-      <div class="avatar">🧑‍💻</div>
-      <div class="header-info">
-        <h2>Steve</h2>
-        <div class="status">● Online (probably procrastinating)</div>
+      <div class="status-dot"></div>
+      <div>
+        <div class="header-title">Steve McLaughlin</div>
+        <div class="header-sub">civil engineer · cat dad · snack enthusiast</div>
       </div>
-      <button class="reset-btn" onclick="resetChat()">New chat</button>
+      <button class="reset-btn" onclick="resetChat()">new chat</button>
     </div>
 
     <div class="messages" id="messages">
-      <div class="message steve">
-        <div class="sender">Steve</div>
-        yo what's up
-      </div>
+      <div class="message steve">yo what's up</div>
     </div>
 
     <div class="typing-indicator" id="typing">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
     <div class="input-area">
-      <input type="text" id="input" placeholder="Message Steve..." autocomplete="off" />
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      <input type="text" id="input" placeholder="message steve..." autocomplete="off" />
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -216,17 +282,9 @@
     function addMessage(text, role) {
       const div = document.createElement("div");
       div.className = `message ${role}`;
-      if (role === "steve") {
-        div.innerHTML = `<div class="sender">Steve</div>${escapeHtml(text)}`;
-      } else {
-        div.textContent = text;
-      }
+      div.textContent = text;
       messagesEl.appendChild(div);
       messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     }
 
     async function sendMessage() {
@@ -236,8 +294,8 @@
       sendBtn.disabled = true;
       addMessage(text, "user");
 
-      typing.classList.add("visible");
       messagesEl.appendChild(typing);
+      typing.classList.add("visible");
       messagesEl.scrollTop = messagesEl.scrollHeight;
 
       try {
@@ -249,9 +307,9 @@
         const data = await res.json();
         typing.classList.remove("visible");
         addMessage(data.reply || data.error, "steve");
-      } catch (err) {
+      } catch {
         typing.classList.remove("visible");
-        addMessage("lol something broke on my end, try again", "steve");
+        addMessage("lol something broke, try again", "steve");
       }
 
       sendBtn.disabled = false;
@@ -260,11 +318,7 @@
 
     async function resetChat() {
       await fetch("/reset", { method: "POST" });
-      messagesEl.innerHTML = `
-        <div class="message steve">
-          <div class="sender">Steve</div>
-          yo what's up
-        </div>`;
+      messagesEl.innerHTML = `<div class="message steve">yo what's up</div>`;
     }
   </script>
 </body>
